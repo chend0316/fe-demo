@@ -9,13 +9,17 @@ export const CameraPreviewer: React.FC<CameraPreviewerProps> = ({stream, speaker
   const videoEl = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    videoEl.current.srcObject = stream;
-    if (speakerDeviceId) {
-        (videoEl.current as any).setSinkId(speakerDeviceId);
+    if (stream) {
+      videoEl.current.srcObject = stream;
+      if (speakerDeviceId) {
+          (videoEl.current as any).setSinkId(speakerDeviceId);
+      }
     }
   }, [stream, speakerDeviceId]);
 
-  return <div>
-    <video ref={videoEl} autoPlay playsInline />
-  </div>;
+  if (stream) {
+    return <video className='rounded-lg h-full' ref={videoEl} autoPlay playsInline />
+  } else {
+    return <div className='rounded-lg bg-slate-300 h-full w-6/12'></div>
+  }
 };
