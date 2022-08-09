@@ -1,4 +1,4 @@
-import React from "react"
+import React, { CSSProperties } from "react"
 import cx from 'classnames'
 
 type IconNames = 'camera' | 'microphone'
@@ -16,4 +16,20 @@ export const Icon: React.FC<IconProps> = (props) => {
   return (<svg xmlns="http://www.w3.org/2000/svg" className={cx("h-6 w-6", props.className)} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
     {paths[props.name]}
   </svg>)
+}
+
+interface IconMuteProps {
+  mute: boolean;
+}
+export const IconMute: React.FC<IconMuteProps> = (props) => {
+  const style: CSSProperties = {
+    position: 'absolute',
+    top: '50%', left: '50%',
+    width: props.mute ? '100%' : '0',
+    transform: 'translate(-50%, -50%) rotate(-45deg)',
+    borderBottomWidth: '2px',
+    borderBottomStyle: 'solid',
+    transition: 'width .15s ease 0s',
+  }
+  return <div style={style} className="border-b-red-400"></div>
 }
